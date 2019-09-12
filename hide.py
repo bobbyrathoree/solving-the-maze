@@ -2,13 +2,12 @@
 #
 # hide.py : a simple friend-hider
 #
-# Submitted by : [PUT YOUR NAME AND USERNAME HERE]
+# Submitted by : Bobby Rathore (brathore)
 #
 # Based on skeleton code by D. Crandall and Z. Kachwala, 2019
 #
 # The problem to be solved is this:
 # Given a campus map, find a placement of F friends so that no two can find one another.
-#
 
 import sys
 

@@ -2,7 +2,7 @@
 #
 # find_luddy.py : a simple maze solver
 #
-# Submitted by : [PUT YOUR NAME AND USERNAME HERE]
+# Submitted by : Bobby Rathore (brathore)
 #
 # Based on skeleton code by Z. Kachwala, 2019
 #

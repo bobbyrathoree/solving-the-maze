@@ -68,19 +68,19 @@ def successors(board):
     ]
 
 
-ktof_friends = dict()
+# ktof_friends = dict()
 
 
 # check if board is a goal state
 def is_goal(board):
     number_of_friends = sum([row.count("F") for row in board])
-    ktof_friends.update(
-        {
-            str(number_of_friends): 1
-            if str(number_of_friends) not in ktof_friends
-            else ktof_friends[str(number_of_friends)] + 1
-        }
-    )
+    # ktof_friends.update(
+    #     {
+    #         str(number_of_friends): 1
+    #         if str(number_of_friends) not in ktof_friends
+    #         else ktof_friends[str(number_of_friends)] + 1
+    #     }
+    # )
     return number_of_friends == K
 
 
@@ -97,7 +97,7 @@ def solve(initial_board):
             if is_goal(s):
                 return s
             fringe.append(s)
-            print(ktof_friends, '\n')
+            # print(ktof_friends, '\n')
     return False
 
 

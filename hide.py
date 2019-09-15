@@ -26,28 +26,30 @@ def printable_board(board):
 
 # Add a friend to the board at the given position, and return a new board (doesn't change original)
 def add_friend(board, row, col):
-    return (
+    board_with_new_friend = (
         board[0:row]
         + [board[row][0:col] + ["F"] + board[row][col + 1 :]]
         + board[row + 1 :]
     )
+    return board_with_new_friend
 
 
 def is_safe(arr: list, position):
     left, right = arr[0:position], arr[position + 1 :]
     left_clear, right_clear = True, True
+    buildings = ["&", "@"]
     if "F" in left:
         if not any(
-            buildings
+            building
             in left[
                 next(i for i in reversed(range(len(left))) if left[i] == "F") : position
             ]
-            for buildings in ["&", "@"]
+            for building in buildings
         ):
             left_clear = False
     if "F" in right:
         if not any(
-            buildings in right[position : right.index("F")] for buildings in ["&", "@"]
+            building in right[position : right.index("F")] for building in buildings
         ):
             right_clear = False
 
@@ -66,36 +68,51 @@ def successors(board):
     ]
 
 
+ktof_friends = dict()
+
+
 # check if board is a goal state
 def is_goal(board):
-    return sum([row.count("F") for row in board]) == K
+    number_of_friends = sum([row.count("F") for row in board])
+    ktof_friends.update(
+        {
+            str(number_of_friends): 1
+            if str(number_of_friends) not in ktof_friends
+            else ktof_friends[str(number_of_friends)] + 1
+        }
+    )
+    return number_of_friends == K
+
+
+def stringify(arr):
+    return "".join(["".join(row) for row in arr])
 
 
 # Solve n-rooks!
 def solve(initial_board):
-    # fringe = deque()
-    fringe = [initial_board]
-    # fringe.append(initial_board)
+    fringe = deque()
+    fringe.append(initial_board)
     while len(fringe) > 0:
         for s in successors(fringe.pop()):
             if is_goal(s):
                 return s
             fringe.append(s)
-            print('\n\nfringe: {}'.format(len(fringe)))
+            print(ktof_friends, '\n')
     return False
 
 
 # Main Function
 if __name__ == "__main__":
-    # iub_map = parse_map(sys.argv[1])
-    iub_map = [
-        [".", ".", ".", ".", "&", "&", "&"],
-        [".", "&", "&", "&", ".", ".", "."],
-        [".", ".", ".", ".", "&", ".", "."],
-        [".", "&", ".", "&", ".", ".", "."],
-        [".", "&", ".", "&", ".", "&", "."],
-        ["#", "&", ".", ".", ".", "&", "@"],
-    ]
+    iub_map = parse_map(sys.argv[1])
+    # iub_map = [
+    #     [".", ".", ".", ".", "&", "&", "&"],
+    #     [".", "&", "&", "&", ".", ".", "."],
+    #     [".", ".", ".", ".", "&", ".", "."],
+    #     [".", "&", ".", "&", ".", ".", "."],
+    #     [".", "&", ".", "&", ".", "&", "."],
+    #     ["#", "&", ".", ".", ".", "&", "@"],
+    # ]
+
     # This is K, the number of friends
     K = int(sys.argv[2])
     print(

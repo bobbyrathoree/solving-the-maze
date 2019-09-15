@@ -54,12 +54,14 @@ def get_my_location(input_map):
 
 
 def get_number_of_sidewalks(input_map):
-    return len([
-        'foo'
-        for col_i in range(len(input_map[0]))
-        for row_i in range(len(input_map))
-        if input_map[row_i][col_i] == "."
-    ])
+    return len(
+        [
+            "foo"
+            for col_i in range(len(input_map[0]))
+            for row_i in range(len(input_map))
+            if input_map[row_i][col_i] == "."
+        ]
+    )
 
 
 # Perform search on the map
@@ -100,9 +102,13 @@ if __name__ == "__main__":
     print("Leave me alone, I'm navigating!")
     solution = search1(iub_map)
     if solution:
-        print("I found the solution btw.\nIt took me {0} steps to get there."
-              "\nHere's the path that I took: {1}"
-              "\nThe line below is for the not-so-smart grading program to grade my output.".format(solution[0], solution[1]))
+        print(
+            "I found the solution btw.\nIt took me {0} steps to get there."
+            "\nHere's the path that I took: {1}"
+            "\nThe line below is for the not-so-smart grading program to grade my output.".format(
+                solution[0], solution[1]
+            )
+        )
         print(solution[0], solution[1])
     else:
         print("No solution found.")

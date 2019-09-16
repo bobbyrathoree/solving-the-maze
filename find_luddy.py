@@ -21,7 +21,7 @@ def valid_index(pos, n, m):
     return 0 <= pos[0] < n and 0 <= pos[1] < m
 
 
-visited = list()
+visited = set()
 
 
 # Find the possible moves from position (row, col)
@@ -40,7 +40,7 @@ def moves(input_map, row, col):
         if valid_index(move[0], len(input_map), len(input_map[0]))
         and (input_map[move[0][0]][move[0][1]] in ".@" and move[0] not in visited)
     ]
-    [visited.append(move[0]) for move in valid_moves]
+    [visited.add(move[0]) for move in valid_moves]
     return valid_moves
 
 
@@ -71,7 +71,7 @@ def search1(input_map):
     # We use queue for our purpose
     fringe = queue.Queue()
     fringe.put(((my_location, ""), 0))
-    visited.append(my_location)
+    visited.add(my_location)
 
     while fringe:
         (curr_move, curr_dist) = fringe.get()
@@ -84,21 +84,13 @@ def search1(input_map):
                 if len(visited) == get_number_of_sidewalks(input_map):
                     return None
 
-                # Add to queue the point to explore next, along with path traveled until now
+                # Add to queue the node to explore next, along with path traveled until now
                 fringe.put(((move[0], curr_move[1] + move[1]), curr_dist + 1))
 
 
 # Main Function
 if __name__ == "__main__":
     iub_map = parse_map(sys.argv[1])
-    # iub_map = [
-    #     [".", ".", ".", ".", "&", "&", "&"],
-    #     [".", "&", "&", "&", ".", ".", "."],
-    #     [".", ".", ".", ".", "&", ".", "."],
-    #     [".", "&", ".", "&", ".", ".", "."],
-    #     [".", "&", ".", "&", ".", "&", "."],
-    #     ["#", "&", ".", ".", ".", "&", "@"],
-    # ]
     print("Leave me alone, I'm navigating!")
     solution = search1(iub_map)
     if solution:

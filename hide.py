@@ -22,9 +22,9 @@ time_factor = 1.0
 no_solution_exists = False
 
 
-# Parse the map from a given filename
 def parse_map(filename: str) -> list:
     """
+    To parse the map from a given filename
     :param filename: name of the file
     :return: a two-dimensional list of the map
     """
@@ -32,9 +32,9 @@ def parse_map(filename: str) -> list:
         return [[char for char in line] for line in f.read().split("\n")]
 
 
-# Return a string with the board rendered in a human-friendly format
 def printable_board(board: list) -> str:
     """
+    To return a string with the board rendered in a human-friendly format
     :param board: the 2-d solution board
     :return: that same board in a presentable string format
     """
@@ -51,9 +51,10 @@ def solution_found_checker() -> None:
         threading.Timer(1.0, solution_found_checker).start()
 
 
-# Add a friend to the board at the given position, and return a new board (doesn't change original)
 def add_friend(board: list, row: int, col: int) -> list:
     """
+    Add a friend to the board at the given position, and return a
+    new board (doesn't change original)
     :param board: the 2-d list of map
     :param row: row index
     :param col: column index
@@ -98,9 +99,9 @@ def is_safe(arr: list, position: int) -> bool:
     return left_clear and right_clear
 
 
-# Get list of successors of given board state
 def successors(board: list) -> list:
     """
+    Get list of successors of given board state
     :param board: instance of the board at a particular time in the fringe
     :return: list of possible successors for a board state
     """
@@ -151,9 +152,9 @@ def is_goal(board: list) -> bool:
     return sum([row.count("F") for row in board]) == K
 
 
-# Solve n-rooks!
 def solve(initial_board):
     """
+    Solve n-rooks!
     :param initial_board: the user map without any friends in a 2d list
     :return: either False if no solution found, or the solution itself
     """

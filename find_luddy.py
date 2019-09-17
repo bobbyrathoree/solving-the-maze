@@ -9,23 +9,38 @@
 import queue
 import sys
 
+visited = set()
 
-# Parse the map from a given filename
-def parse_map(filename):
+
+def parse_map(filename: str) -> list:
+    """
+    To parse the map from a given filename
+    :param filename: name of the file
+    :return: a two-dimensional list of the map
+    """
     with open(filename, "r") as f:
         return [[char for char in line] for line in f.read().split("\n")]
 
 
-# Check if a row,col index pair is on the map
-def valid_index(pos, n, m):
+def valid_index(pos: list, n: int, m: int) -> bool:
+    """
+    Check if a row,col index pair is on the map
+    :param pos: position of node
+    :param n: maximum number of rows on map-1
+    :param m: maximum number of columns on map-1
+    :return: boolean value of whether the index is valid
+    """
     return 0 <= pos[0] < n and 0 <= pos[1] < m
 
 
-visited = set()
-
-
-# Find the possible moves from position (row, col)
-def moves(input_map, row, col):
+def moves(input_map: list, row: int, col: int) -> list:
+    """
+    Find the possible moves from position (row, col)
+    :param input_map: map at a particular state/node
+    :param row: row value
+    :param col: column value
+    :return: list of valid moves possible for the given map state
+    """
     possible_moves = (
         ((row + 1, col), "S"),
         ((row - 1, col), "N"),
@@ -44,7 +59,11 @@ def moves(input_map, row, col):
     return valid_moves
 
 
-def get_my_location(input_map):
+def get_my_location(input_map: list) -> tuple:
+    """
+    :param input_map: the initial map in 2d list format to return our position (#)
+    :return: the coordinates for where we're located on the map (#)
+    """
     return [
         (row_i, col_i)
         for col_i in range(len(input_map[0]))
@@ -53,7 +72,12 @@ def get_my_location(input_map):
     ][0]
 
 
-def get_number_of_sidewalks(input_map):
+def get_number_of_sidewalks(input_map: list) -> int:
+    """
+    Get the total number of sidewalks for our terminating condition
+    :param input_map: the input map in 2-d format
+    :return: number of dots (sidewalks)
+    """
     return len(
         [
             "foo"
@@ -64,8 +88,11 @@ def get_number_of_sidewalks(input_map):
     )
 
 
-# Perform search on the map
-def search1(input_map):
+def search1(input_map: list):
+    """
+    Main algorithm
+    :param input_map: The initial map to search the solution for.
+    """
     my_location = get_my_location(input_map)
 
     # We use queue for our purpose
@@ -93,14 +120,14 @@ if __name__ == "__main__":
     iub_map = parse_map(sys.argv[1])
     print("Leave me alone, I'm navigating!")
     solution = search1(iub_map)
-    if solution:
-        print(
-            "I found the solution btw.\nIt took me {0} steps to get there."
-            "\nHere's the path that I took: {1}"
-            "\nThe line below is for the not-so-smart grading program to grade my output.".format(
-                solution[0], solution[1]
-            )
+    print(
+        "I found the solution btw.\nIt took me {0} steps to get there."
+        "\nHere's the path that I took: {1}"
+        "\nThe line below is for the not-so-smart grading program to grade my output."
+        "\n{2} {3}".format(
+            solution[0],
+            solution[1],
+            solution[0],
+            solution[1] if solution else "No solution found.",
         )
-        print(solution[0], solution[1])
-    else:
-        print("No solution found.")
+    )

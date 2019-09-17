@@ -8,7 +8,6 @@
 #
 # The problem to be solved is this:
 # Given a campus map, find a placement of F friends so that no two can find one another.
-import signal
 import sys
 from collections import deque
 import threading
@@ -20,6 +19,7 @@ old_number_of_friends = 0
 ctr = 0
 time_factor = 1.0
 no_solution_exists = False
+visited = set()
 
 
 def parse_map(filename: str) -> list:
@@ -39,6 +39,16 @@ def printable_board(board: list) -> str:
     :return: that same board in a presentable string format
     """
     return "\n".join(["".join(row) for row in board])
+
+
+def stringify(arr):
+    """
+    Returns a map as a string to save in visited set.
+    String because list of lists would take a whole lot memory
+    :param arr: the list that we want as a string
+    :return: the string made up of list elements
+    """
+    return "".join(["".join(row) for row in arr])
 
 
 def solution_found_checker() -> None:
@@ -165,11 +175,14 @@ def solve(initial_board):
         if no_solution_exists:
             sys.exit()
         for s in successors(fringe.pop()):
+            if stringify(s) in visited:
+                break
             if no_solution_exists:
                 sys.exit()
             if is_goal(s):
                 return s
             solution_board = s
+            visited.add(stringify(s))
             fringe.append(s)
     return False
 
@@ -184,13 +197,15 @@ if __name__ == "__main__":
     print(
         "Starting from initial board:\n"
         + printable_board(iub_map)
-        + "\n\nLooking for solution...\n"
+        + "\n\nLooking for solution..."
     )
 
     solution = solve(iub_map)
-    print("Here's what we found:")
     solution_found_checker()
-    print(printable_board(solution))
+    print(
+        "\nHere's what we found:\n{0}".format(printable_board(solution))
+        if solution
+        else "No solution found!"
+    )
     solution_found = True
-    signal.signal(signal.SIGINT, lambda x, y: sys.exit(0))
     raise SystemExit

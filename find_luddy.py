@@ -100,7 +100,7 @@ def search1(input_map: list):
     fringe.put(((my_location, ""), 0))
     visited.add(my_location)
 
-    while fringe:
+    while not fringe.empty():
         (curr_move, curr_dist) = fringe.get()
         moves_for_this_point = moves(input_map, *curr_move[0])
         for move in moves_for_this_point:

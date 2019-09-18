@@ -124,10 +124,7 @@ if __name__ == "__main__":
         "I found the solution btw.\nIt took me {0} steps to get there."
         "\nHere's the path that I took: {1}"
         "\nThe line below is for the not-so-smart grading program to grade my output."
-        "\n{2} {3}".format(
-            solution[0],
-            solution[1],
-            solution[0],
-            solution[1] if solution else "No solution found.",
-        )
+        "\n{2} {3}".format(solution[0], solution[1], solution[0], solution[1])
+        if solution
+        else "No solution found."
     )

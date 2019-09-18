@@ -205,7 +205,7 @@ if __name__ == "__main__":
     print(
         "\nHere's what we found:\n{0}".format(printable_board(solution))
         if solution
-        else "No solution found!"
+        else "None"
     )
     solution_found = True
     raise SystemExit

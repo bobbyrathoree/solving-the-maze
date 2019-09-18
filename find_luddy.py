@@ -118,13 +118,9 @@ def search1(input_map: list):
 # Main Function
 if __name__ == "__main__":
     iub_map = parse_map(sys.argv[1])
-    print("Leave me alone, I'm navigating!")
+    print("Shhhh... quiet while I navigate!")
     solution = search1(iub_map)
-    print(
-        "I found the solution btw.\nIt took me {0} steps to get there."
-        "\nHere's the path that I took: {1}"
-        "\nThe line below is for the not-so-smart grading program to grade my output."
-        "\n{2} {3}".format(solution[0], solution[1], solution[0], solution[1])
-        if solution
-        else "No solution found."
-    )
+    if solution:
+        print("Here's the solution I found:\n{0} {1}".format(solution[0], solution[1]))
+    else:
+        print("Inf")
